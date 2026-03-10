@@ -179,6 +179,59 @@ Safe contract storage:
 4. Fill in `.env` and run the flow above
 5. Verify on [Base Sepolia Basescan](https://sepolia.basescan.org/) that both txs succeeded
 
+## Demo: Base Sepolia (real execution)
+
+Real run on Base Sepolia (chain 84532), 2-of-2 Safe at [`0xF3F7...`](https://sepolia.basescan.org/address/0xF3F751f639E02Ad0B3458828FD9cBB093BB6A806).
+
+**Owner 1 approves:**
+```
+$ npx tsx src/1-owner1-approve.ts
+Initializing protocol-kit as Owner 1...
+Safe: 0xF3F751f639E02Ad0B3458828FD9cBB093BB6A806
+Owners: 0x3B747C372C2088963ABc2194B7D5ADe238965b33, 0x179Cba17F8936e7A910Aee9D356a1DB7ca0591f3
+Threshold: 2  |  Current nonce: 0
+
+Creating tx: send 900000000000000 wei to 0x3B747C372C2088963ABc2194B7D5ADe238965b33
+Safe TX Hash: 0x62cb07e7e9dac4bbd880ce7058edb44a887476641362384884665ada68ecb8e0
+
+Sending approveHash() on-chain...
+Approval TX: 0x97bc514928daf1800823d1cd24c6900884d7a2e52fd8b35ab01605a939fd0825
+Approval confirmed on-chain.
+On-chain approvals: []
+
+Saved: pending-tx.json
+
+--- Share with Owner 2 ---
+URL: https://app.safe.global/#/safe/84532/0xF3F7.../execute?targets=...
+JSON: pending-tx.json
+
+Owner 2 runs: npx tsx src/2-owner2-execute.ts
+```
+
+**Owner 2 executes:**
+```
+$ npx tsx src/2-owner2-execute.ts
+Loading from pending-tx.json...
+Safe: 0xF3F751f639E02Ad0B3458828FD9cBB093BB6A806
+Initializing protocol-kit as Owner 2...
+Computed hash: 0x62cb07e7e9dac4bbd880ce7058edb44a887476641362384884665ada68ecb8e0
+Hash verified — matches pending-tx.json.
+
+Approvals: 1/2
+  approved: 0x3B747C372C2088963ABc2194B7D5ADe238965b33
+
+Executing transaction...
+  protocol-kit will auto-collect on-chain approvals +
+  use Owner 2 as msg.sender (counts as 2nd approval)
+
+Execution TX: 0x191920834b282b91fceed8d2e5b3894dab2bd071ab916226bc4d97b0afe0e7da
+Transaction executed successfully!
+```
+
+**On-chain transactions:**
+- [approveHash() — Owner 1](https://sepolia.basescan.org/tx/0x97bc514928daf1800823d1cd24c6900884d7a2e52fd8b35ab01605a939fd0825)
+- [execTransaction() — Owner 2](https://sepolia.basescan.org/tx/0x191920834b282b91fceed8d2e5b3894dab2bd071ab916226bc4d97b0afe0e7da)
+
 ## Dependencies
 
 - [`@safe-global/protocol-kit`](https://github.com/safe-global/safe-core-sdk) — Safe SDK for transaction building, hashing, approval, execution
