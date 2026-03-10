@@ -1,0 +1,22 @@
+{
+  "name": "safe-2of2-onchain",
+  "version": "1.0.0",
+  "private": true,
+  "description": "2-of-2 Safe multisig using fully on-chain approveHash() coordination — no backend required",
+  "type": "module",
+  "scripts": {
+    "owner1": "tsx src/1-owner1-approve.ts",
+    "owner2": "tsx src/2-owner2-execute.ts",
+    "status": "tsx src/check-status.ts"
+  },
+  "dependencies": {
+    "@safe-global/protocol-kit": "^6.1.2",
+    "@safe-global/types-kit": "^3.0.0",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^25.4.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
