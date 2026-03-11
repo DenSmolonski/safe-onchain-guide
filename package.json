@@ -7,7 +7,11 @@
   "scripts": {
     "owner1": "tsx src/1-owner1-approve.ts",
     "owner2": "tsx src/2-owner2-execute.ts",
-    "status": "tsx src/check-status.ts"
+    "status": "tsx src/check-status.ts",
+    "offchain:propose": "tsx src/offchain-3owners/1-propose.ts",
+    "offchain:sign": "tsx src/offchain-3owners/2-sign.ts",
+    "offchain:execute": "tsx src/offchain-3owners/3-execute.ts",
+    "offchain:status": "tsx src/offchain-3owners/check-status.ts"
   },
   "dependencies": {
     "@safe-global/protocol-kit": "^6.1.2",

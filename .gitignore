@@ -3,3 +3,4 @@ dist/
 artifacts/
 .env
 pending-tx.json
+pending-offchain-tx.json
